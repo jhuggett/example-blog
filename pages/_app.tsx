@@ -22,7 +22,7 @@ export default class Site extends App {
         github: new GithubClient({
           proxy: '/api/proxy-github',
           authCallbackRoute: '/api/create-github-access-token',
-          clientId: process.env.GITHUB_CLIENT_ID,
+          clientId: process.env.APP_CLIENT_ID,
           baseRepoFullName: process.env.REPO_FULL_NAME, // e.g: tinacms/tinacms.org,
         }),
       },

@@ -4,6 +4,7 @@ import { GetStaticProps } from 'next'
 import { useGithubJsonForm,
   useGithubToolbarPlugins
   } from 'react-tinacms-github'
+import auth from '../appAuth'
 
 export default function Home({ file }) {
     const formOptions = {
@@ -16,6 +17,8 @@ export default function Home({ file }) {
 
   return (
     <div className="container">
+      <button onClick={auth}>Auth</button>
+
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
