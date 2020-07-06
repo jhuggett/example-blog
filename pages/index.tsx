@@ -5,12 +5,16 @@ import { useGithubJsonForm,
   useGithubToolbarPlugins
   } from 'react-tinacms-github'
 
+import { usePlugin } from 'tinacms'
+
 export default function Home({ file }) {
     const formOptions = {
       label: 'Home Page',
         fields: [{ name: 'title', component: 'text' }],
       }
       const [data, form] = useGithubJsonForm(file, formOptions)
+
+      usePlugin(form)
 
       useGithubToolbarPlugins()
 

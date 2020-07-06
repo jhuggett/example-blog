@@ -1,5 +1,5 @@
 import App from 'next/app'
-import { TinaCMS, TinaProvider } from 'tinacms'
+import { TinaCMS, TinaProvider, useCMS } from 'tinacms'
 import {
   useGithubEditing,
   GithubClient,
@@ -64,8 +64,22 @@ export default class Site extends App {
 }
 
 const enterEditMode = () => {
-  return fetch(`/api/preview`).then(() => {
-    window.location.href = window.location.pathname
+  const token = null
+
+  const headers = new Headers()
+
+  if (token) {
+    headers.append('Authorization', 'Bearer ' + token)
+  }
+
+
+  return fetch(`/api/preview`, { headers: headers }).then(resp => {
+    if (resp.status == 200) window.location.href = window.location.pathname
+    else {
+      const cms = useCMS()
+      cms.events.dispatch({ type: 'github:error', error: { messasge: `Call to \`/api/preview\` failed: ${resp.statusText}, for more information see: https://tinacms.org/blog/upgrade-notice-improved-github-security`} })
+    }
+    
   })
 }
 
